@@ -1,0 +1,63 @@
+#include iostream
+
+struct ListNode {
+    int val;
+    ListNode next;
+
+    ListNode(int val) {
+        this-val = val;
+        this-next = nullptr;
+    }
+};
+
+void removeDuplicates(ListNode head) {
+    if (head == nullptr)
+        return;
+
+    ListNode curr = head;
+    while (curr-next != nullptr) {
+        if (curr-val == curr-next-val) {
+            ListNode duplicateNode = curr-next;
+            curr-next = duplicateNode-next;
+            delete duplicateNode;
+        } else {
+            curr = curr-next;
+        }
+    }
+}
+
+void printList(ListNode head) {
+    ListNode curr = head;
+    while (curr != nullptr) {
+        stdcout  curr-val   ;
+        curr = curr-next;
+    }
+    stdcout  stdendl;
+}
+
+int main() {
+     Create a sample sorted linked list with duplicates 1 - 1 - 2 - 3 - 3
+    ListNode head = new ListNode(1);
+    head-next = new ListNode(1);
+    head-next-next = new ListNode(2);
+    head-next-next-next = new ListNode(3);
+    head-next-next-next-next = new ListNode(3);
+
+    stdcout  Original list ;
+    printList(head);
+
+    removeDuplicates(head);
+
+    stdcout  List after removing duplicates ;
+    printList(head);
+
+     Clean up the memory
+    ListNode curr = head;
+    while (curr != nullptr) {
+        ListNode nextNode = curr-next;
+        delete curr;
+        curr = nextNode;
+    }
+
+    return 0;
+}

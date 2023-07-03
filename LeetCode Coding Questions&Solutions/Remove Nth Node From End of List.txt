@@ -1,0 +1,102 @@
+#include <iostream>
+using namespace std;
+
+// Definition for singly-linked list.
+struct ListNode {
+    int val;
+    ListNode* next;
+
+    ListNode() {
+        val = 0;
+        next = nullptr;
+    }
+
+    ListNode(int x) {
+        val = x;
+        next = nullptr;
+    }
+
+    ListNode(int x, ListNode* nextNode) {
+        val = x;
+        next = nextNode;
+    }
+};
+
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* dummy = new ListNode(0);  // Create a dummy node
+        dummy->next = head;
+        
+        ListNode* slow = dummy;
+        ListNode* fast = dummy;
+        
+        // Move fast pointer n nodes ahead
+        for (int i = 0; i <= n; i++) {
+            fast = fast->next;
+        }
+        
+        // Move slow and fast pointers together until fast reaches the end
+        while (fast != nullptr) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+        
+        // Remove the nth node from the end
+        ListNode* nodeToRemove = slow->next;
+        slow->next = slow->next->next;
+        delete nodeToRemove;
+        
+        ListNode* newHead = dummy->next;  // Get the updated head
+        
+        delete dummy;  // Delete the dummy node
+        
+        return newHead;
+    }
+};
+
+// Function to create a linked list from an array
+ListNode* createLinkedList(int arr[], int n) {
+    ListNode* dummy = new ListNode(0);
+    ListNode* curr = dummy;
+    
+    for (int i = 0; i < n; i++) {
+        curr->next = new ListNode(arr[i]);
+        curr = curr->next;
+    }
+    
+    ListNode* head = dummy->next;
+    delete dummy;
+    
+    return head;
+}
+
+// Function to print a linked list
+void printLinkedList(ListNode* head) {
+    ListNode* curr = head;
+    while (curr != nullptr) {
+        cout << curr->val << " ";
+        curr = curr->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    using namespace std;
+    Solution solution;
+
+    // Test case
+    int arr[] = {1, 2, 3, 4, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int removePos = 5;
+
+    ListNode* head = createLinkedList(arr, n);
+    cout << "Original list: ";
+    printLinkedList(head);
+
+    ListNode* newHead = solution.removeNthFromEnd(head, removePos);
+    cout << "Modified list: ";
+    printLinkedList(newHead);
+    
+    return 0;
+}

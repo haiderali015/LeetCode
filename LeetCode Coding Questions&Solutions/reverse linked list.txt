@@ -1,0 +1,65 @@
+#include <iostream>
+using namespace std;
+
+struct ListNode {
+    int val;
+    ListNode* next;
+
+    ListNode(int val) {
+        this->val = val;
+        this->next = nullptr;
+    }
+};
+
+ListNode* reverseList(ListNode* head) {
+    
+    ListNode* prev = nullptr;
+    ListNode* curr = head;
+
+    while (curr != nullptr) {
+        ListNode* nextNode = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = nextNode;
+    }
+
+    return prev;
+}
+
+void printList(ListNode* head) {
+    ListNode* curr = head;
+    
+    while (curr != nullptr) {
+        cout << curr->val << " ";
+        curr = curr->next;
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    // Create a sample linked list: 1 -> 2 -> 3 -> 4 -> 5
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
+
+    std::cout << "Original list: ";
+    printList(head);
+
+    // Reverse the linked list
+    ListNode* reversedHead = reverseList(head);
+
+    std::cout << "Reversed list: ";
+    printList(reversedHead);
+
+    // Clean up the memory
+    ListNode* curr = reversedHead;
+    while (curr != nullptr) {
+        ListNode* nextNode = curr->next;
+        delete curr;
+        curr = nextNode;
+    }
+
+    return 0;
+}
