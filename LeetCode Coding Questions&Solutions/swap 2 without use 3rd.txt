@@ -1,0 +1,6 @@
+
+void swap(int& a, int& b) {
+    a = a + b;  // Add both values and store the result in 'a'
+    b = a - b;  // Subtract the original 'b' value from the updated 'a' value and store the result in 'b'
+    a = a - b;  // Subtract the updated 'b' value from the updated 'a' value and store the result in 'a'
+}

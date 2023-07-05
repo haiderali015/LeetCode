@@ -1,0 +1,16 @@
+
+void fibonacciSeries(int n) {
+    int first = n;
+    int second = n+1;
+
+    cout << "Fibonacci Series: " << first << " " << second << " ";
+
+    while (second <= 100) {  // Adjust the condition as per your requirement
+        int next = first + second;
+        cout << next << " ";
+        first = second;
+        second = next;
+    }
+
+    cout << endl;
+}
